@@ -146,7 +146,7 @@ from langchain_pinecone import PineconeVectorStore
 parser = StrOutputParser()
 
 # Set Up RetrievalQA Chain
-chain = RetrievalQAWithSourcesChain.from_chain_type(llm=chat_model, chain_type="stuff", retriever=docsearch.as_retriever())
+chain = RetrievalQAWithSourcesChain.from_chain_type(llm=chat_model, chain_type="stuff", retriever=pinecone.as_retriever())
 
 # Use the Chain to get the answer
 response = chain({"question": "i have a swollen gum"})
