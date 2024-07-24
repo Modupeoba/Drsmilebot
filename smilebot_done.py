@@ -43,7 +43,7 @@ from google.generativeai import GenerativeModel
 from google.generativeai import configure
 
 # Retrieve Gemini API key from Google Colab's userdata
-# GEMINI_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
+GEMINI_API_KEY = "AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k"
 
 os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
 # Configure the Gemini API
