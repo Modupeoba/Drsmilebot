@@ -157,11 +157,11 @@ import streamlit as st
 # Use the Chain to get the answer
 st.header('Dental Chatbot')
 user_input = st.chat_input('Ask your dental related question')
-response = None
+
 if user_input:
     response = chain({"question": user_input})
 
-st.success(response['answer'])
+    st.success(response['answer'])
 # print(response['answer'])
 # # print(response['sources'])
 
