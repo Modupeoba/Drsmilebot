@@ -140,7 +140,11 @@ from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 from langchain.prompts import PromptTemplate
 
 from langchain_pinecone import PineconeVectorStore
-
+docsearch = PineconeVectorStore(
+    index_name="smilebot",
+    pinecone_api_key="PINECONE_API_KEY",
+    embedding=embeddings  # Assuming 'embeddings' is already defined
+)
 
 # Create a string output parser
 parser = StrOutputParser()
