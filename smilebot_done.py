@@ -152,13 +152,18 @@ parser = StrOutputParser()
 # Set Up RetrievalQA Chain
 chain = RetrievalQAWithSourcesChain.from_chain_type(llm=chat_model, chain_type="stuff", retriever=pinecone.as_retriever())
 
+ # -------------------- sTREAMLIT iMPLEMENTATION ---------------------------
+import streamlit as st
 # Use the Chain to get the answer
-response = chain({"question": "i have a swollen gum"})
+st.header('Dental Chatbot')
+user_input = st.chat_input('Ask your dental related question')
+if user_input:
+    response = chain({"question": user_input})
 
-# Print the answer and sources separately
-print(response['answer'])
-# print(response['sources'])
+st.success(response['answer'])
+# print(response['answer'])
+# # print(response['sources'])
 
-quest = "My gums bleed when I brush. What could be the cause?"
-response = chain({"question": quest})
-print(response['answer'])
+# quest = "My gums bleed when I brush. What could be the cause?"
+# response = chain({"question": quest})
+# print(response['answer'])
