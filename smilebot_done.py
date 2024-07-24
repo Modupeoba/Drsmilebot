@@ -28,10 +28,11 @@ import pandas as pd
 # Import Libraries and Set Up Environment Variables
 from pinecone import Pinecone, ServerlessSpec
 import os
-from google.colab import userdata
+# from google.colab import userdata
 
 # Retrieve Pinecone API key from Google Colab's userdata
-api = userdata.get('d7e58e8e-b0a1-408d-9ce0-811372bc3033')
+api = 'd7e58e8e-b0a1-408d-9ce0-811372bc3033'
+# api = 'd7e58e8e-b0a1-408d-9ce0-811372bc3033'
 # Replace 'your-api-key' with your actual Pinecone API key
 os.environ["d7e58e8e-b0a1-408d-9ce0-811372bc3033"] = api  # Set Pinecone API key as an environment variable
 
@@ -41,7 +42,8 @@ from google.generativeai import GenerativeModel
 from google.generativeai import configure
 
 # Retrieve Gemini API key from Google Colab's userdata
-GEMINI_API_KEY = userdata.get('AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k')
+GEMINI_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
+# GEMINI_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
 # Configure the Gemini API
 configure(api_key=GEMINI_API_KEY)  # configure the API
 
