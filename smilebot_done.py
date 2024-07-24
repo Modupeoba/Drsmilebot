@@ -50,8 +50,8 @@ configure(api_key=GEMINI_API_KEY)  # configure the API
 
 os.environ["AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k"] = GEMINI_API_KEY
 
-# GOOGLE_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
-# os.environ["GOOGLE_API_KEY"] = st.secrets[GOOGLE_API_KEY
+GOOGLE_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
+os.environ["GOOGLE_API_KEY"] = st.secrets[GOOGLE_API_KEY]
 
 import google.generativeai as genai
 from langchain.embeddings import GooglePalmEmbeddings
