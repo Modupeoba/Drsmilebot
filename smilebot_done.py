@@ -154,14 +154,56 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(llm=chat_model, chain_type="
 
  # -------------------- sTREAMLIT iMPLEMENTATION ---------------------------
 import streamlit as st
-# Use the Chain to get the answer
-st.header('Dental Chatbot')
-user_input = st.chat_input('Ask your dental related question')
+# # Use the Chain to get the answer
+# st.header('Dental Chatbot')
+# user_input = st.chat_input('Ask your dental related question')
 
-if user_input:
-    response = chain({"question": user_input})
+# if user_input:
+#     response = chain({"question": user_input})
 
-    st.success(response['answer'])
+#     st.success(response['answer'])
+
+# Streamlit app
+def main():
+    st.title("Dr. Smile Bot")
+    
+    # Sidebar for user login
+    st.sidebar.title("Login")
+    username = st.sidebar.text_input("Username")
+    password = st.sidebar.text_input("Password", type='password')
+    login_button = st.sidebar.button("Login")
+
+    # Check if login is successful
+    if login_button:
+        if username == "user" and password == "pass":  # Replace with actual user validation
+            st.sidebar.success("Logged in as {}".format(username))
+            
+            # Main chat interface
+            st.header("Dental Chatbot")
+            
+            # Chat history
+            if 'responses' not in st.session_state:
+                st.session_state['responses'] = []
+            if 'user_inputs' not in st.session_state:
+                st.session_state['user_inputs'] = []
+
+            user_input = st.text_input("Ask your dental-related question")
+
+            if user_input:
+                response = chain({"question": user_input})
+                st.session_state['user_inputs'].append(user_input)
+                st.session_state['responses'].append(response['answer'])
+
+            if st.session_state['responses']:
+                for i in range(len(st.session_state['responses'])):
+                    message(st.session_state['user_inputs'][i], is_user=True, key=str(i) + '_user')
+                    message(st.session_state['responses'][i], key=str(i))
+
+        else:
+            st.sidebar.error("Invalid username or password")
+
+if __name__ == '__main__':
+    main()
 # print(response['answer'])
 # # print(response['sources'])
 
