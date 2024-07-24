@@ -142,7 +142,7 @@ from langchain.prompts import PromptTemplate
 from langchain_pinecone import PineconeVectorStore
 docsearch = PineconeVectorStore(
     index_name="smilebot",
-    pinecone_api_key="PINECONE_API_KEY",
+    pinecone_api_key="d7e58e8e-b0a1-408d-9ce0-811372bc3033",
     embedding=embeddings  # Assuming 'embeddings' is already defined
 )
 
