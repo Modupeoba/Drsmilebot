@@ -28,7 +28,7 @@ import pandas as pd
 # Import Libraries and Set Up Environment Variables
 from pinecone import Pinecone, ServerlessSpec
 import os
-# from google.colab import userdata
+
 
 # Retrieve Pinecone API key from Google Colab's userdata
 api = 'd7e58e8e-b0a1-408d-9ce0-811372bc3033'
