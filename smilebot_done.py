@@ -31,10 +31,10 @@ import os
 
 
 # Retrieve Pinecone API key from Google Colab's userdata
-api = 'd7e58e8e-b0a1-408d-9ce0-811372bc3033'
+# api = 'd7e58e8e-b0a1-408d-9ce0-811372bc3033'
 # api = 'd7e58e8e-b0a1-408d-9ce0-811372bc3033'
 # Replace 'your-api-key' with your actual Pinecone API key
-os.environ["d7e58e8e-b0a1-408d-9ce0-811372bc3033"] = api  # Set Pinecone API key as an environment variable
+os.environ["PINECONE_API_KEY"] = st.secrets["PINECONE_API_KEY"] # Set Pinecone API key as an environment variable
 
 from google.generativeai import GenerativeModel
 # !pip install --upgrade google-generativeai
@@ -42,15 +42,15 @@ from google.generativeai import GenerativeModel
 from google.generativeai import configure
 
 # Retrieve Gemini API key from Google Colab's userdata
-GEMINI_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
 # GEMINI_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
 # Configure the Gemini API
 configure(api_key=GEMINI_API_KEY)  # configure the API
 
 os.environ["AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k"] = GEMINI_API_KEY
 
-GOOGLE_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
-os.environ["AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k"] = GOOGLE_API_KEY
+# GOOGLE_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
+# os.environ["GOOGLE_API_KEY"] = st.secrets[GOOGLE_API_KEY
 
 import google.generativeai as genai
 from langchain.embeddings import GooglePalmEmbeddings
