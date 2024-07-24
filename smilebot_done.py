@@ -125,143 +125,13 @@ from bs4 import BeautifulSoup
 import csv
 import time
 
-# Set user agent to avoid being blocked by websites
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-    'Accept-Language': 'en-US,en;q=0.9',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'Connection': 'keep-alive',
-}
-
-# Function to scrape text from a website
-def scrape_website(url):
-    try:
-        # Increased timeout to 30 seconds
-        response = requests.get(url, headers=headers, verify=False, timeout=30)
-        response.raise_for_status()  # Raise an exception for bad status codes
-        soup = BeautifulSoup(response.text, 'html.parser')
-        text = ' '.join(p.get_text() for p in soup.find_all('p'))
-        time.sleep(1)
-        return text
-    except requests.exceptions.RequestException as e:
-        print(f"Error scraping {url}: {e}")
-        return ""  # Return an empty string if scraping fails
-
-
-# List of URLs to scrape
-websites = [
-    'https://www.cdc.gov/oral-health/php/infographics/index.html',
-    'https://www.katydentalpeople.com/importance-of-oral-health-education-for-children.html#:~:text=Oral%20health%20education%20is%20the,the%20importance%20of%20oral%20health.',
-    'https://www.who.int/news-room/fact-sheets/detail/oral-health',
-    'https://www.who.int/health-topics/oral-health#tab=tab_1',
-    'https://www.mouthhealthy.org/dental-care-concerns/dental-emergencies',
-    'https://www.mouthhealthy.org/dental-care-concerns/questions-about-going-to-the-dentist',
-    'https://www.mouthhealthy.org/top-reasons-to-visit-dentist',
-    'https://www.mouthhealthy.org/life-stages/babies-and-kids/first-dental-visit-for-baby',
-    'https://www.dentalassociates.com/dental-topics',
-    'https://www.dentalhealth.org/pages/category/all-oral-health-information',
-    'https://www.cdc.gov/healthyschools/npao/oralhealth.htm',
-    'https://www.toothclub.gov.hk/en/en_index.html',
-    'https://www.colgate.com/en-in/oral-health',
-    'https://www.randallpointedentalgeneva.com/why-oral-hygiene-education-is-essential/',
-    'https://internationalscholarsjournals.org/articles/8299321106012023',
-    'https://www.who.int/news-room/fact-sheets/detail/oral-health',
-    'https://www.nidcr.nih.gov/health-info/oral-hygiene',
-    'https://eclkc.ohs.acf.hhs.gov/oral-health/brush-oral-health/promoting-oral-health-adults',
-    'https://my.clevelandclinic.org/health/treatments/16914-oral-hygiene',
-    'https://www.cdc.gov/oral-health/prevention/oral-health-tips-for-adults.html',
-    'https://www.healthline.com/health/dental-and-oral-health',
-    'https://www.dentalhealth.org/childrens-teeth',
-    'https://www.nationwidechildrens.org/family-resources-education/health-wellness-and-safety-resources/helping-hands/dental-teeth-and-gum-care-for-infants-and-toddlers',
-    'https://www.health.ny.gov/prevention/dental/birth_oral_health.htm'
-]
-
-# Scrape websites and collect text
-website_texts = [{'Source': url, 'Text': scrape_website(url)} for url in websites]
-
-# Save the combined texts to a CSV file
-csv_file_path = 'web_scraped_texts.csv'
-with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
-    fieldnames = ['Source', 'Text']
-    # Set the escapechar parameter to handle special characters
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, escapechar='\\')
-
-    writer.writeheader()
-    for data in website_texts:
-        writer.writerow(data)
-
-print("Scraping completed and text saved to web_scraped_texts.csv")
-
-# Read CSV file with scraped data
-csv_file_path = 'web_scraped_texts.csv'
-documents = []
-
-with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
-    # Tell the reader to ignore null characters by replacing them with an empty string
-    reader = csv.DictReader(csvfile.read().replace('\0','').splitlines(), restval='')
-    for row in reader:
-        documents.append(Document(page_content=row['Text'], metadata={"url": row['Source']}))
-
-
-# Function to read text from local PDF
-def read_text_from_local_pdf(file_path):
-    try:
-        with open(file_path, "rb") as f:
-            reader = PyPDF2.PdfReader(f)
-            text = ""
-            for page in reader.pages:
-                text += page.extract_text()
-        return text
-    except PyPDF2.PdfReadError as e: # Catch the specific PdfReadError from PyPDF2
-        print(f"Failed to read local PDF {file_path}: {e}")
-        return ""
-
-# Local PDF file paths
-local_pdfs = [
-    '/content/000356937.pdf',
-    '/content/1472-6963-12-177.pdf',
-    '/content/Aghimien+p13-22-1.pdf',
-    '/content/B148_8-en.pdf',
-    '/content/IJRR0010.pdf',
-    '/content/Oral Health and Hygiene (1).pdf',
-    '/content/Oral_Health_Promotion.pdf',
-    '/content/Professional_Med_J_Q_2014_21_1_66_69.pdf',
-    '/content/SJODR_83_100-109.pdf',
-    '/content/The importance of preventive dental visits from a young age  systematic review and current perspectives.pdf',
-    '/content/oral-health-education-community-and-individual-levels-of-intervention-2247-2452-1000787.pdf',
-    '/content/sj.bdj.2012.1176.pdf'
-    ]
-
-# Read text from local PDFs and add to documents
-for idx, pdf in enumerate(local_pdfs):
-    print(f"Reading local PDF {idx + 1}/{len(local_pdfs)}: {pdf}")
-    pdf_text = read_text_from_local_pdf(pdf)
-    documents.append(Document(page_content=pdf_text, metadata={"url": pdf}))
-
-documents
-
-# Split and Process Documents
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=400)
-
-from langchain_core.runnables import RunnablePassthrough
-
-documents = text_splitter.split_documents(documents)
-documents
-
 from pinecone import Pinecone
-
-# Make sure to replace 'YOUR_ACTUAL_API_KEY' with your valid Pinecone API key
-pc = Pinecone(api_key="d7e58e8e-b0a1-408d-9ce0-811372bc3033")
-index = pc.Index("smilebot")
 
 # !pip install langchain_pinecone
 from langchain_pinecone import PineconeVectorStore
 
 pinecone = PineconeVectorStore(
     index_name="smilebot",
-    pinecone_api_key="d7e58e8e-b0a1-408d-9ce0-811372bc3033",
     embedding=embeddings
 )
 
@@ -271,12 +141,6 @@ from langchain.prompts import PromptTemplate
 
 from langchain_pinecone import PineconeVectorStore
 
-# Initialize PineconeVectorStore
-docsearch = PineconeVectorStore(
-    index_name="smilebot",
-    pinecone_api_key="d7e58e8e-b0a1-408d-9ce0-811372bc3033",
-    embedding=embeddings  # Assuming 'embeddings' is already defined
-)
 
 # Create a string output parser
 parser = StrOutputParser()
