@@ -22,6 +22,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+import streamlit as st
 
 # !pip install pinecone-client
 
