@@ -59,7 +59,7 @@ from langchain.embeddings import GooglePalmEmbeddings
 from langchain.chat_models import ChatGooglePalm
 
 # Initialize Google PaLM Embeddings
-embeddings = GooglePalmEmbeddings()
+embeddings = GooglePalmEmbeddings(google_api_key=GEMINI_API_KEY)
 
 # Initialize ChatGooglePalm model
 chat_model = ChatGooglePalm(temperature=0.7, google_api_key=GEMINI_API_KEY)
