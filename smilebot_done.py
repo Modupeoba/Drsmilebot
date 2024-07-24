@@ -161,7 +161,7 @@ user_input = st.chat_input('Ask your dental related question')
 if user_input:
     response = chain({"question": user_input})
 
-    st.success(response['answer'])
+    st.write(response['answer'])
 # print(response['answer'])
 # # print(response['sources'])
 
