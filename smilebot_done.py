@@ -129,6 +129,8 @@ def main():
     
     # Adding space before the image
     st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
     st.image("teeth-dental-care-medical-background.png")  # Replace with your main image path
     st.markdown("</div>", unsafe_allow_html=True)
     
