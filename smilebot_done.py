@@ -128,7 +128,7 @@ def main():
         """
         <div style="text-align: center;">
             <h1 style="font-weight: bold;">🦷 Dr. Smile Bot 🦷</h1>
-            <img src="teeth-dental-care-medical-background.png" alt="Dr. Smile Bot" width="300">
+            <img src="teeth-dental-care-medical-background.png">
         </div>
         """,
         unsafe_allow_html=True
@@ -136,7 +136,7 @@ def main():
     
     # Sidebar options
     st.sidebar.title("Smile hub")
-    st.sidebar.image("5495572-removebg-preview.png",width = 400, caption = 'Welcome User')  # Replace with your sidebar image path
+    st.sidebar.image("5495572-removebg-preview.png",use_column_width=True,caption = 'Welcome User')  # Replace with your sidebar image path
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # Display main image
