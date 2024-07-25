@@ -223,12 +223,18 @@ def main():
     elif sidebar_option == "Profile":
         st.header("User Profile")
         st.image("male-female-user-circles-flat-set.png", width=100)  # Replace with your user profile image path
-        st.write("**Name:** John Doe")
-        st.write("**Email:** johndoe@example.com")
-        st.write("**Member since:** January 2021")
-        st.write("**Last login:** July 24, 2024")
-        st.write("User information and settings can be displayed here.")
 
+                # Input form for user details
+        with st.form(key='profile_form'):
+            name = st.text_input("Name")
+            email = st.text_input("Email")
+            member_since = st.date_input("Member Since")
+            submit_button = st.form_submit_button(label='Update Profile')
+
+        if submit_button:
+            st.write("**Name:**", name)
+            st.write("**Email:**", email)
+            st.write("**Member since:**", member_since)
 # Run the app
 if __name__ == '__main__':
     main()
