@@ -123,11 +123,11 @@ st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wid
 
 # Define the main function
 def main():
-    st.title("🦷 Dr. Smile Bot 🦷")
+    st.title("   🦷  Dr. Smile Bot 🦷    ")
 
     # Sidebar options
     st.sidebar.title("Smile hub")
-    st.sidebar.image("5495572-removebg-preview.png",width = 300, caption = 'Welcome User')  # Replace with your sidebar image path
+    st.sidebar.image("5495572-removebg-preview.png",width = 400, caption = 'Welcome User')  # Replace with your sidebar image path
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # Display main image
