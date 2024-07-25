@@ -142,23 +142,23 @@ def main():
     # Display main image
     # st.image("/", use_column_width=True)  # Replace with your main image path
 
-    if sidebar_option == "Chat with Dr. Smile Bot":
+        if sidebar_option == "Chat with Dr. Smile Bot":
         st.header("Chat with Dr. Smile Bot")
 
         # Chat history
-        if 'responses' not in st.session_state:
+            if 'responses' not in st.session_state:
             st.session_state['responses'] = []
-        if 'user_inputs' not in st.session_state:
+            if 'user_inputs' not in st.session_state:
             st.session_state['user_inputs'] = []
 
         user_input = st.chat_input("Ask your dental-related question")
 
-        if user_input:
+            if user_input:
             response = chain({"question": user_input})
             st.session_state['user_inputs'].append(user_input)
             st.session_state['responses'].append(response['answer'])
 
-        if st.session_state['responses']:
+            if st.session_state['responses']:
             for i in range(len(st.session_state['responses'])):
                 st.write(f"**You:** {st.session_state['user_inputs'][i]}")
                 st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
