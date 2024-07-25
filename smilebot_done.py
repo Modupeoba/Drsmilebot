@@ -138,7 +138,7 @@ def main():
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # # Display main image
-    st.image("teeth-dental-care-medical-background.png", width = 300)  # Replace with your main image path
+    st.image("teeth-dental-care-medical-background.png", width = 800)  # Replace with your main image path
 
     if sidebar_option == "Chat with Dr. Smile Bot":
         st.header("Chat with Dr. Smile Bot")
