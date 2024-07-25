@@ -212,7 +212,7 @@ def main():
                 if 'user_inputs' not in st.session_state:
                     st.session_state['user_inputs'] = []
 
-                user_input = st.text_input("Ask your dental-related question")
+               user_input = st.text_input("Ask your dental-related question")
 
                 if st.button("Send"):
                     if user_input:
