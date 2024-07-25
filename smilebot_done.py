@@ -142,7 +142,7 @@ def main():
     # Display main image
     # st.image("/", use_column_width=True)  # Replace with your main image path
 
-if sidebar_option == "Chat with Dr. Smile Bot":
+    if sidebar_option == "Chat with Dr. Smile Bot":
         st.header("Chat with Dr. Smile Bot")
 
         # Chat history
@@ -163,7 +163,7 @@ if sidebar_option == "Chat with Dr. Smile Bot":
                 st.write(f"**You:** {st.session_state['user_inputs'][i]}")
                 st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
 
-elif sidebar_option == "Dental Tips":
+    elif sidebar_option == "Dental Tips":
         st.header("Dental Tips")
         st.write("""
             - Brush your teeth twice a day with fluoride toothpaste.
@@ -171,8 +171,7 @@ elif sidebar_option == "Dental Tips":
             - Eat a healthy diet and limit sugary snacks.
             - Visit your dentist regularly for check-ups and cleanings.
         """)
-
-elif sidebar_option == "FAQ":
+    elif sidebar_option == "FAQ":
         st.header("Frequently Asked Questions")
         st.write("""
             **Q: How often should I visit the dentist?**
