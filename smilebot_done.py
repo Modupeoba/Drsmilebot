@@ -123,7 +123,7 @@ st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wid
 
 # Define the main function
 def main():
-    st.title("   🦷  Dr. Smile Bot 🦷    ")
+    st.title(   "   🦷  Dr. Smile Bot 🦷    ")
 
     # Sidebar options
     st.sidebar.title("Smile hub")
