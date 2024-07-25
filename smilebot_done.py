@@ -136,18 +136,12 @@ def main():
     # # Display main image
     st.image("5495572-removebg-preview.png", width=800)  # Replace with your main image path
 
-    if sidebar_option == "Chat with Dr. Smile Bot":
+    if sidebar_option == "Chat":
         st.header("Chat with Dr. Smile Bot")
-
-        # Chat history
-        if 'responses' not in st.session_state:
-            st.session_state['responses'] = []
-        if 'user_inputs' not in st.session_state:
-            st.session_state['user_inputs'] = []
-
+        
         user_input = st.chat_input("Ask your dental-related question")
 
-         if user_input:
+        if user_input:
             # Include the current context in the input to maintain the conversation flow
             st.session_state['context'] += f"User: {user_input}\n"
             
