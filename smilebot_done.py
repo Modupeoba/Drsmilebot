@@ -126,11 +126,7 @@ def main():
         
      # Centered title and image
     st.markdown("<h1 style='text-align: center; font-weight: bold;'>🦷 Dr. Smile Bot 🦷</h1>", unsafe_allow_html=True)
-    
-    # Adding space before the image
-    st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
-    st.image("teeth-dental-care-medical-background.png",width = 500)  # Replace with your main image path
-    st.markdown("</div>", unsafe_allow_html=True, )
+
     
     # Sidebar options
     st.sidebar.title("Smile hub")
@@ -138,7 +134,7 @@ def main():
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # # Display main image
-    # st.image("teeth-dental-care-medical-background.png", width = 800)  # Replace with your main image path
+    st.image("teeth-dental-care-medical-background.png", width = 800)  # Replace with your main image path
 
     if sidebar_option == "Chat with Dr. Smile Bot":
         st.header("Chat with Dr. Smile Bot")
