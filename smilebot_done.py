@@ -195,8 +195,8 @@ def main():
 
         if st.session_state['responses']:
             for i in range(len(st.session_state['responses'])):
-                message(st.session_state['user_inputs'][i], is_user=True, key=str(i) + '_user')
-                message(st.session_state['responses'][i], key=str(i))
+                st.write(f"**You:** {st.session_state['user_inputs'][i]}")
+                st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
 
     elif sidebar_option == "Dental Tips":
         st.header("Dental Tips")
