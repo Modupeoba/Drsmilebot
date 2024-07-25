@@ -129,7 +129,7 @@ def main():
         """
         <div style="text-align: center;">
             <h1 style="font-weight: bold;">🦷 Dr. Smile Bot 🦷</h1>
-            <img src="5495572-removebg-preview.png" alt="Dr. Smile Bot" width="300">
+            <img src="teeth-dental-care-medical-background.png" >
         </div>
         """,
         unsafe_allow_html=True
