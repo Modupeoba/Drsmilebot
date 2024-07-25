@@ -118,51 +118,41 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(llm=chat_model, chain_type="
  # -------------------- sTREAMLIT iMPLEMENTATION ---------------------------
 import streamlit as st
 
-# Function to initialize session state variables
-def init_session_state():
-    if 'responses' not in st.session_state:
-        st.session_state['responses'] = []
-    if 'user_inputs' not in st.session_state:
-        st.session_state['user_inputs'] = []
+# Set page configuration at the start
+st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wide")
 
-# Function to display chat history in the sidebar
-def display_chat_history_in_sidebar():
-    if st.session_state['responses']:
-        st.sidebar.header("Chat History")
-        for i in range(len(st.session_state['responses'])):
-            st.sidebar.write(f"**You:** {st.session_state['user_inputs'][i]}")
-            st.sidebar.write(f"**Bot:** {st.session_state['responses'][i]}")
-            
 # Define the main function
 def main():
-    st.title("  🦷 Dr. Smile Bot 🦷  ")
-    
+    st.title("🦷 Dr. Smile Bot 🦷")
+
     # Sidebar options
-    st.sidebar.title("Smile Space")
+    st.sidebar.title("Options")
     st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your sidebar image path
-
-    # Initialize session state variables
-    init_session_state()
-
-    # Display chat history in the sidebar
-    display_chat_history_in_sidebar()
-
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+
+    # Display main image
+    st.image("teeth-dental-care-medical-background.png", use_column_width=True)  # Replace with your main image path
 
     if sidebar_option == "Chat with Dr. Smile Bot":
         st.header("Chat with Dr. Smile Bot")
-        
-        user_input = st.text_input("Ask your dental-related question")
+
+        # Chat history
+        if 'responses' not in st.session_state:
+            st.session_state['responses'] = []
+        if 'user_inputs' not in st.session_state:
+            st.session_state['user_inputs'] = []
+
+        user_input = st.chat_input("Ask your dental-related question")
 
         if user_input:
-            # Assume response is fetched from your chatbot model
-            response = {"answer": "This is a dummy response for the question: " + user_input}
-            
-            # Append user input and response to session state
+            response = chain({"question": user_input})
             st.session_state['user_inputs'].append(user_input)
             st.session_state['responses'].append(response['answer'])
 
-
+        if st.session_state['responses']:
+            for i in range(len(st.session_state['responses'])):
+                st.write(f"**You:** {st.session_state['user_inputs'][i]}")
+                st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
 
     elif sidebar_option == "Dental Tips":
         st.header("Dental Tips")
@@ -186,8 +176,5 @@ def main():
             A: Brush your teeth twice a day, floss daily, eat a balanced diet, and visit your dentist regularly.
         """)
 
-
-# Run the app
 if __name__ == '__main__':
     main()
-
