@@ -130,7 +130,7 @@ def main():
     
     # Sidebar options
     st.sidebar.title("Smile hub")
-    st.sidebar.image("teeth-dental-care-medical-background.png", width=300,caption = 'Welcome User')  # Replace with your sidebar image path
+    st.sidebar.image("teeth-dental-care-medical-background.png", width=400,caption = 'Welcome User')  # Replace with your sidebar image path
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # # Display main image
