@@ -154,14 +154,14 @@ def main():
         user_input = st.chat_input("Ask your dental-related question")
 
             if user_input:
-            response = chain({"question": user_input})
-            st.session_state['user_inputs'].append(user_input)
-            st.session_state['responses'].append(response['answer'])
+                response = chain({"question": user_input})
+                st.session_state['user_inputs'].append(user_input)
+                st.session_state['responses'].append(response['answer'])
 
             if st.session_state['responses']:
-            for i in range(len(st.session_state['responses'])):
-                st.write(f"**You:** {st.session_state['user_inputs'][i]}")
-                st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
+                for i in range(len(st.session_state['responses'])):
+                    st.write(f"**You:** {st.session_state['user_inputs'][i]}")
+                    st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
 
     elif sidebar_option == "Dental Tips":
         st.header("Dental Tips")
