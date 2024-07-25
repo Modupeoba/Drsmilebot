@@ -128,8 +128,6 @@ def main():
         """
         <div style="text-align: center;">
             <h1 style="font-weight: bold;">🦷 Dr. Smile Bot 🦷</h1>
-            <img src="teeth-dental-care-medical-background.png">
-        </div>
         """,
         unsafe_allow_html=True
     )
@@ -140,7 +138,7 @@ def main():
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # # Display main image
-    # st.image("teeth-dental-care-medical-background.png", use_column_width=True)  # Replace with your main image path
+    st.image("teeth-dental-care-medical-background.png", width = 300)  # Replace with your main image path
 
     if sidebar_option == "Chat with Dr. Smile Bot":
         st.header("Chat with Dr. Smile Bot")
