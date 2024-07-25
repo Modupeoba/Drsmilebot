@@ -117,7 +117,19 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(llm=chat_model, chain_type="
 
  # -------------------- sTREAMLIT iMPLEMENTATION ---------------------------
 import streamlit as st
+# Initialize chat history in session state
+if 'responses' not in st.session_state:
+    st.session_state['responses'] = []
+if 'user_inputs' not in st.session_state:
+    st.session_state['user_inputs'] = []
 
+# Function to display chat history in the sidebar
+def display_chat_history_in_sidebar():
+    if st.session_state['responses']:
+        st.sidebar.header("Chat History")
+        for i in range(len(st.session_state['responses'])):
+            st.sidebar.write(f"**You:** {st.session_state['user_inputs'][i]}")
+            st.sidebar.write(f"**Bot:** {st.session_state['responses'][i]}")
 # Set page configuration at the start
 st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wide")
 
