@@ -143,13 +143,13 @@ def main():
     # st.image("/", use_column_width=True)  # Replace with your main image path
 
         if sidebar_option == "Chat with Dr. Smile Bot":
-        st.header("Chat with Dr. Smile Bot")
+            st.header("Chat with Dr. Smile Bot")
 
         # Chat history
             if 'responses' not in st.session_state:
-            st.session_state['responses'] = []
+                st.session_state['responses'] = []
             if 'user_inputs' not in st.session_state:
-            st.session_state['user_inputs'] = []
+                st.session_state['user_inputs'] = []
 
         user_input = st.chat_input("Ask your dental-related question")
 
