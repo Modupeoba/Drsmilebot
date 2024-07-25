@@ -163,44 +163,65 @@ import streamlit as st
 
 #     st.success(response['answer'])
 
+# In-memory storage for user credentials (for demonstration purposes)
+user_db = {}
+
 # Streamlit app
 def main():
     st.title("Dr. Smile Bot")
     
-    # Sidebar for user login
-    st.sidebar.title("Login")
-    username = st.sidebar.text_input("Username")
-    password = st.sidebar.text_input("Password", type='password')
-    login_button = st.sidebar.button("Login")
+    # Sidebar for user login or signup
+    st.sidebar.title("Account")
+    st.sidebar.image("C:\Users\hp\Downloads\WhatsApp Image 2024-06-23 at 08.44.38_5ebb5d28.png", use_column_width=True)  # Replace with your image URL
+    
+    action = st.sidebar.selectbox("Select Action", ["Login", "Signup"])
 
-    # Check if login is successful
-    if login_button:
-        if username == "user" and password == "pass":  # Replace with actual user validation
-            st.sidebar.success("Logged in as {}".format(username))
-            
-            # Main chat interface
-            st.header("Dental Chatbot")
-            
-            # Chat history
-            if 'responses' not in st.session_state:
-                st.session_state['responses'] = []
-            if 'user_inputs' not in st.session_state:
-                st.session_state['user_inputs'] = []
+    if action == "Signup":
+        st.sidebar.subheader("Create a New Account")
+        new_username = st.sidebar.text_input("New Username")
+        new_password = st.sidebar.text_input("New Password", type='password')
+        signup_button = st.sidebar.button("Signup")
 
-            user_input = st.text_input("Ask your dental-related question")
+        if signup_button:
+            if new_username in user_db:
+                st.sidebar.error("Username already exists. Choose a different username.")
+            else:
+                user_db[new_username] = new_password
+                st.sidebar.success("Account created successfully. Please log in.")
+    
+    elif action == "Login":
+        st.sidebar.subheader("Login")
+        username = st.sidebar.text_input("Username")
+        password = st.sidebar.text_input("Password", type='password')
+        login_button = st.sidebar.button("Login")
 
-            if user_input:
-                response = chain({"question": user_input})
-                st.session_state['user_inputs'].append(user_input)
-                st.session_state['responses'].append(response['answer'])
+        if login_button:
+            if username in user_db and user_db[username] == password:
+                st.sidebar.success(f"Logged in as {username}")
 
-            if st.session_state['responses']:
-                for i in range(len(st.session_state['responses'])):
-                    message(st.session_state['user_inputs'][i], is_user=True, key=str(i) + '_user')
-                    message(st.session_state['responses'][i], key=str(i))
+                # Main chat interface
+                st.header("Dental Chatbot")
+                st.image("C:\Users\hp\Downloads\dental-implants-surgery-concept-pen-tool-created-clipping-path-included-jpeg-easy-composite-removebg-preview.png", use_column_width=True)  # Replace with your image URL
 
-        else:
-            st.sidebar.error("Invalid username or password")
+                # Chat history
+                if 'responses' not in st.session_state:
+                    st.session_state['responses'] = []
+                if 'user_inputs' not in st.session_state:
+                    st.session_state['user_inputs'] = []
+
+                user_input = st.text_input("Ask your dental-related question")
+
+                if user_input:
+                    response = chain({"question": user_input})
+                    st.session_state['user_inputs'].append(user_input)
+                    st.session_state['responses'].append(response['answer'])
+
+                if st.session_state['responses']:
+                    for i in range(len(st.session_state['responses'])):
+                        message(st.session_state['user_inputs'][i], is_user=True, key=str(i) + '_user')
+                        message(st.session_state['responses'][i], key=str(i))
+            else:
+                st.sidebar.error("Invalid username or password")
 
 if __name__ == '__main__':
     main()
