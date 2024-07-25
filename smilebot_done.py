@@ -172,7 +172,7 @@ def main():
     
     # Sidebar for user login or signup
     st.sidebar.title("Account")
-    st.sidebar.image("C:\Users\hp\Downloads\WhatsApp Image 2024-06-23 at 08.44.38_5ebb5d28.png", use_column_width=True)  # Replace with your image URL
+    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your image URL
     
     action = st.sidebar.selectbox("Select Action", ["Login", "Signup"])
 
@@ -201,7 +201,7 @@ def main():
 
                 # Main chat interface
                 st.header("Dental Chatbot")
-                st.image("C:\Users\hp\Downloads\dental-implants-surgery-concept-pen-tool-created-clipping-path-included-jpeg-easy-composite-removebg-preview.png", use_column_width=True)  # Replace with your image URL
+                st.image("dental-implants-surgery-concept-pen-tool-created-clipping-path-included-jpeg-easy-composite-removebg-preview.png", use_column_width=True)  # Replace with your image URL
 
                 # Chat history
                 if 'responses' not in st.session_state:
