@@ -120,7 +120,7 @@ import streamlit as st
 
 # Define the main function
 def main():
-    st.title("🦷 Dr. Smile Bot 🦷")
+    st.title("  🦷 Dr. Smile Bot 🦷  ")
     
     # Sidebar options
     st.sidebar.title("Dental Health Companion")
