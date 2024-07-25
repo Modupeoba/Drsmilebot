@@ -213,9 +213,8 @@ def main():
                     st.session_state['user_inputs'] = []
 
                 user_input = st.chat_input("Ask your dental-related question")
-
-                if st.button("Send"):
-                    if user_input:
+                
+                if user_input:
                         response = chain({"question": user_input})
                         st.session_state['user_inputs'].append(user_input)
                         st.session_state['responses'].append(response['answer'])
