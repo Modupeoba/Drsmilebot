@@ -7,9 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1nqLMKB4iGhsSiCR8wEJLn-rSmHeRq-Sh
 """
 
-# !pip install -U google-generativeai langchain langchain_community pypdf PyPDF2 requests beautifulsoup4 pandas
-# !pip install google-generativeai
-
 # Import Libraries and Set Up Environment Variables
 import os
 # from google.colab import userdata
@@ -19,28 +16,21 @@ from langchain.vectorstores import Pinecone
 from langchain.prompts import PromptTemplate
 from langchain.document_loaders import PyPDFLoader, CSVLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-import requests
-from bs4 import BeautifulSoup
+from pinecone import Pinecone, ServerlessSpec
+from google.generativeai import configure
+import google.generativeai as genai
+from langchain.embeddings import GooglePalmEmbeddings
+from langchain.chat_models import ChatGooglePalm
+from langchain_core.output_parsers import StrOutputParser
+from langchain.prompts import PromptTemplate
+from pinecone import Pinecone
+from langchain_pinecone import PineconeVectorStore
 import pandas as pd
 import streamlit as st
 
-# !pip install pinecone-client
-
-# Import Libraries and Set Up Environment Variables
-from pinecone import Pinecone, ServerlessSpec
-import os
-
-
-# Retrieve Pinecone API key from Google Colab's userdata
-# api = 'd7e58e8e-b0a1-408d-9ce0-811372bc3033'
-# api = 'd7e58e8e-b0a1-408d-9ce0-811372bc3033'
 # Replace 'your-api-key' with your actual Pinecone API key
 os.environ["PINECONE_API_KEY"] = st.secrets["PINECONE_API_KEY"] # Set Pinecone API key as an environment variable
 
-from google.generativeai import GenerativeModel
-# !pip install --upgrade google-generativeai
-
-from google.generativeai import configure
 
 # Retrieve Gemini API key from Google Colab's userdata
 GEMINI_API_KEY = "AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k"
@@ -49,25 +39,12 @@ os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
 # Configure the Gemini API
 configure(api_key=GEMINI_API_KEY)  # configure the API
 
-# os.environ["AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k"] = GEMINI_API_KEY
-
-# GOOGLE_API_KEY = 'AIzaSyB-3SICe5or9W7Dv3X0-8yaZqS1ForMd0k'
-# os.environ["GOOGLE_API_KEY"] = st.secrets[GOOGLE_API_KEY]
-
-import google.generativeai as genai
-from langchain.embeddings import GooglePalmEmbeddings
-from langchain.chat_models import ChatGooglePalm
-
 # Initialize Google PaLM Embeddings
 embeddings = GooglePalmEmbeddings(google_api_key=GEMINI_API_KEY)
 
 # Initialize ChatGooglePalm model
 chat_model = ChatGooglePalm(temperature=0.7, google_api_key=GEMINI_API_KEY)
 
-# Initialize Prompt and Parser
-from langchain_core.output_parsers import StrOutputParser
-from langchain.prompts import PromptTemplate
-''
 # Create a string output parser
 parser = StrOutputParser()
 
@@ -116,20 +93,6 @@ Context: {context}
 Question: {question}
 """
 
-from langchain_core.documents import Document
-import PyPDF2
-from io import BytesIO
-
-import requests
-from bs4 import BeautifulSoup
-import csv
-import time
-
-from pinecone import Pinecone
-
-# !pip install langchain_pinecone
-from langchain_pinecone import PineconeVectorStore
-
 pinecone = PineconeVectorStore(
     index_name="smilebot",
     embedding=embeddings
@@ -154,23 +117,13 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(llm=chat_model, chain_type="
 
  # -------------------- sTREAMLIT iMPLEMENTATION ---------------------------
 import streamlit as st
-# # Use the Chain to get the answer
-# st.header('Dental Chatbot')
-# user_input = st.chat_input('Ask your dental related question')
-
-# if user_input:
-#     response = chain({"question": user_input})
-
-#     st.success(response['answer'])
-# # Set page configuration at the start
-# st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wide")
 
 # Define the main function
 def main():
     st.title("🦷 Dr. Smile Bot 🦷")
     
     # Sidebar options
-    st.sidebar.title("Options")
+    st.sidebar.title("Dental Health Companion")
     st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your sidebar image path
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
@@ -224,9 +177,4 @@ def main():
 # Run the app
 if __name__ == '__main__':
     main()
-# print(response['answer'])
-# # print(response['sources'])
 
-# quest = "My gums bleed when I brush. What could be the cause?"
-# response = chain({"question": quest})
-# print(response['answer'])
