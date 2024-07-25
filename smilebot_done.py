@@ -123,20 +123,12 @@ st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wid
 
 # Define the main function
 def main():
-        st.markdown(
-        """
-        <div style="text-align: center;">
-            <h1>🦷 Dr. Smile Bot 🦷</h1>
-            <img src="teeth-dental-care-medical-background.png" alt="Dr. Smile Bot" width="300">
-        """,
-        unsafe_allow_html=True
-    )
-
+    st.title("🦷 Dr. Smile Bot 🦷")
 
     # Sidebar options
-        st.sidebar.title("Options")
-        st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your sidebar image path
-        sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+    st.sidebar.title("Smile hub")
+    st.sidebar.image("5495572-removebg-preview.png",width = 300, caption = 'Welcome User')  # Replace with your sidebar image path
+    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # Display main image
     st.image("teeth-dental-care-medical-background.png", use_column_width=True)  # Replace with your main image path
@@ -170,6 +162,7 @@ def main():
             - Eat a healthy diet and limit sugary snacks.
             - Visit your dentist regularly for check-ups and cleanings.
         """)
+
     elif sidebar_option == "FAQ":
         st.header("Frequently Asked Questions")
         st.write("""
