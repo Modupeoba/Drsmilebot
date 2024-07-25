@@ -163,68 +163,61 @@ import streamlit as st
 
 #     st.success(response['answer'])
 
-# In-memory storage for user credentials (for demonstration purposes)
-user_db = {}
-
 # Streamlit app
 def main():
     st.title("🦷 Dr. Smile Bot 🦷")
     
-    # Sidebar for user login or signup
-    st.sidebar.title("Account")
+    # Sidebar options
+    st.sidebar.title("Options")
     st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your image URL
-    
-    action = st.sidebar.selectbox("Select Action", ["Login", "Signup"])
+    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ", "Profile"])
 
-    # Initialize user database in session state if not already present
-    if 'user_db' not in st.session_state:
-        st.session_state['user_db'] = {}
+    if sidebar_option == "Chat with Dr. Smile Bot":
+        st.header("Chat with Dr. Smile Bot")
+        
+        # Chat history
+        if 'responses' not in st.session_state:
+            st.session_state['responses'] = []
+        if 'user_inputs' not in st.session_state:
+            st.session_state['user_inputs'] = []
 
-    if action == "Signup":
-        st.sidebar.subheader("Create a New Account")
-        new_username = st.sidebar.text_input("New Username")
-        new_password = st.sidebar.text_input("New Password", type='password')
-        signup_button = st.sidebar.button("Signup")
+        user_input = st.chat_input("Ask your dental-related question")
 
-        if signup_button:
-            if new_username in st.session_state['user_db']:
-                st.sidebar.error("Username already exists. Choose a different username.")
-            else:
-                st.session_state['user_db'][new_username] = new_password
-                st.sidebar.success("Account created successfully. Please log in.")
-    
-    elif action == "Login":
-        st.sidebar.subheader("Login")
-        username = st.sidebar.text_input("Username")
-        password = st.sidebar.text_input("Password", type='password')
-        login_button = st.sidebar.button("Login")
+        if user_input:
+            response = chain({"question": user_input})
+            st.session_state['user_inputs'].append(user_input)
+            st.session_state['responses'].append(response['answer'])
 
-        if login_button:
-            if username in st.session_state['user_db'] and st.session_state['user_db'][username] == password:
-                st.sidebar.success(f"Logged in as {username}")
+        if st.session_state['responses']:
+            for i in range(len(st.session_state['responses'])):
+                message(st.session_state['user_inputs'][i], is_user=True, key=str(i) + '_user')
+                message(st.session_state['responses'][i], key=str(i))
 
-                # Main chat interface
-                st.image("dental-implants-surgery-concept-pen-tool-created-clipping-path-included-jpeg-easy-composite-removebg-preview.png", use_column_width=True)  # Replace with your image URL
+    elif sidebar_option == "Dental Tips":
+        st.header("Dental Tips")
+        st.write("""
+            - Brush your teeth twice a day with fluoride toothpaste.
+            - Floss daily to remove plaque from between your teeth.
+            - Eat a healthy diet and limit sugary snacks.
+            - Visit your dentist regularly for check-ups and cleanings.
+        """)
 
-                # Chat history
-                if 'responses' not in st.session_state:
-                    st.session_state['responses'] = []
-                if 'user_inputs' not in st.session_state:
-                    st.session_state['user_inputs'] = []
+    elif sidebar_option == "FAQ":
+        st.header("Frequently Asked Questions")
+        st.write("""
+            **Q: How often should I visit the dentist?**
+            A: It is recommended to visit the dentist every six months for a check-up and cleaning.
 
-                user_input = st.chat_input("Ask your dental-related question")
-                
-                if user_input:
-                        response = chain({"question": user_input})
-                        st.session_state['user_inputs'].append(user_input)
-                        st.session_state['responses'].append(response['answer'])
+            **Q: What should I do if I have a toothache?**
+            A: If you have a toothache, rinse your mouth with warm water, floss to remove any food particles, and see your dentist as soon as possible.
 
-                if st.session_state['responses']:
-                    for i in range(len(st.session_state['responses'])):
-                        message(st.session_state['user_inputs'][i], is_user=True, key=str(i) + '_user')
-                        message(st.session_state['responses'][i], key=str(i))
-            else:
-                st.sidebar.error("Invalid username or password")
+            **Q: How can I prevent gum disease?**
+            A: Brush your teeth twice a day, floss daily, eat a balanced diet, and visit your dentist regularly.
+        """)
+
+    elif sidebar_option == "Profile":
+        st.header("User Profile")
+        st.write("User information and settings can be displayed here.")
 
 if __name__ == '__main__':
     main()
