@@ -176,6 +176,10 @@ def main():
     
     action = st.sidebar.selectbox("Select Action", ["Login", "Signup"])
 
+    # Initialize user database in session state if not already present
+    if 'user_db' not in st.session_state:
+        st.session_state['user_db'] = {}
+
     if action == "Signup":
         st.sidebar.subheader("Create a New Account")
         new_username = st.sidebar.text_input("New Username")
@@ -183,10 +187,10 @@ def main():
         signup_button = st.sidebar.button("Signup")
 
         if signup_button:
-            if new_username in user_db:
+            if new_username in st.session_state['user_db']:
                 st.sidebar.error("Username already exists. Choose a different username.")
             else:
-                user_db[new_username] = new_password
+                st.session_state['user_db'][new_username] = new_password
                 st.sidebar.success("Account created successfully. Please log in.")
     
     elif action == "Login":
@@ -196,7 +200,7 @@ def main():
         login_button = st.sidebar.button("Login")
 
         if login_button:
-            if username in user_db and user_db[username] == password:
+            if username in st.session_state['user_db'] and st.session_state['user_db'][username] == password:
                 st.sidebar.success(f"Logged in as {username}")
 
                 # Main chat interface
@@ -211,10 +215,11 @@ def main():
 
                 user_input = st.text_input("Ask your dental-related question")
 
-                if user_input:
-                    response = chain({"question": user_input})
-                    st.session_state['user_inputs'].append(user_input)
-                    st.session_state['responses'].append(response['answer'])
+                if st.button("Send"):
+                    if user_input:
+                        response = chain({"question": user_input})
+                        st.session_state['user_inputs'].append(user_input)
+                        st.session_state['responses'].append(response['answer'])
 
                 if st.session_state['responses']:
                     for i in range(len(st.session_state['responses'])):
