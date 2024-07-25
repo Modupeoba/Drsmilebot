@@ -124,23 +124,13 @@ st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wid
 # Define the main function
 def main():
         
-    st.markdown(
-        """
-        <div style="text-align: center;">
-            <h1 style="font-weight: bold;">🦷 Dr. Smile Bot 🦷</h1>
-        """,
-        unsafe_allow_html=True
-    )
-
-        # Display main image
-    st.markdown(
-        """
-        <div style="text-align: center;">
-            <img src="teeth-dental-care-medical-background.png" alt="Dr. Smile Bot" width="800">
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+     # Centered title and image
+    st.markdown("<h1 style='text-align: center; font-weight: bold;'>🦷 Dr. Smile Bot 🦷</h1>", unsafe_allow_html=True)
+    
+    # Adding space before the image
+    st.markdown("<div style='text-align: center; margin-top: 20px;'>", unsafe_allow_html=True)
+    st.image("teeth-dental-care-medical-background.png", width=800)  # Replace with your main image path
+    st.markdown("</div>", unsafe_allow_html=True)
     
     # Sidebar options
     st.sidebar.title("Smile hub")
