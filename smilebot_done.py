@@ -187,3 +187,504 @@ if sidebar_option == "Chat with Dr. Smile Bot":
 
 if __name__ == '__main__':
     main()
+This code uses st.write to display both user inputs and bot responses, making it compatible with Streamlit's functionality. Ensure the chatbot's chain variable is correctly defined elsewhere in your code.
+
+
+sidebar title ideas?
+ChatGPT
+Sure, here are some sidebar title ideas for your Dr. Smile Bot app:
+
+Oral Health Navigator
+Dental Care Hub
+Smile Support Center
+Tooth Talk HQ
+Oral Wellness Guide
+Dental Assistance Desk
+Mouth Care Central
+Teeth Tips & Tricks
+Dental Health Companion
+Smile Maintenance Station
+Feel free to choose one that best fits the tone and style of your app!
+
+something more catchy
+ChatGPT
+Sure! Here are some more catchy sidebar title ideas:
+
+Bright Smile Hub
+Sparkling Smiles Central
+Pearl Whites Station
+Gleaming Grins Guide
+Tooth Treasure Trove
+Smile Savvy Spot
+Grin Genius Corner
+Radiant Smile Resources
+Happy Teeth Haven
+Dazzling Dentals Dashboard
+and short
+ChatGPT
+Absolutely! Here are some shorter, catchy sidebar title ideas:
+
+Smile Hub
+Grin Guide
+Pearl Whites
+Bright Smiles
+Teeth Tips
+Smile Zone
+Dental Tips
+Grin Spot
+Smile Savvy
+Teeth Hub
+whih other
+ChatGPT
+Here are more catchy and short sidebar title ideas:
+
+Happy Teeth
+Dental Care
+Oral Bliss
+Smile Tips
+Teeth Talk
+Smile Space
+Tooth Zone
+Smile Care
+Bright Bites
+Gleaming Grins
+how can i assess ythe chat history
+ChatGPT
+To store and access the chat history in a Streamlit app, you can use st.session_state. This allows you to keep track of user inputs and responses within the session. Here is an example of how you can implement it:
+
+Updated Streamlit App Code
+python
+Copy code
+import streamlit as st
+from streamlit_chat import message
+
+# Function to initialize session state variables
+def init_session_state():
+    if 'responses' not in st.session_state:
+        st.session_state['responses'] = []
+    if 'user_inputs' not in st.session_state:
+        st.session_state['user_inputs'] = []
+
+# Function to display chat history
+def display_chat_history():
+    if st.session_state['responses']:
+        for i in range(len(st.session_state['responses'])):
+            message(st.session_state['user_inputs'][i], is_user=True, key=str(i) + '_user')
+            message(st.session_state['responses'][i], key=str(i))
+
+# Main Streamlit app
+def main():
+    st.set_page_config(page_title="Dr. Smile Bot", page_icon="🦷", layout="wide")
+    st.title("🦷 Dr. Smile Bot 🦷")
+    
+    # Sidebar options
+    st.sidebar.title("Smile Space")
+    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your image URL
+    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+
+    if sidebar_option == "Chat with Dr. Smile Bot":
+        st.header("Chat with Dr. Smile Bot")
+        
+        # Initialize session state variables
+        init_session_state()
+        
+        user_input = st.chat_input("Ask your dental-related question")
+
+        if user_input:
+            # Assume response is fetched from your chatbot model
+            response = {"answer": "This is a dummy response for the question: " + user_input}
+            
+            # Append user input and response to session state
+            st.session_state['user_inputs'].append(user_input)
+            st.session_state['responses'].append(response['answer'])
+
+        # Display chat history
+        display_chat_history()
+
+    elif sidebar_option == "Dental Tips":
+        st.header("Dental Tips")
+        st.write("""
+            - Brush your teeth twice a day with fluoride toothpaste.
+            - Floss daily to remove plaque from between your teeth.
+            - Eat a healthy diet and limit sugary snacks.
+            - Visit your dentist regularly for check-ups and cleanings.
+        """)
+
+    elif sidebar_option == "FAQ":
+        st.header("Frequently Asked Questions")
+        st.write("""
+            **Q: How often should I visit the dentist?**
+            A: It is recommended to visit the dentist every six months for a check-up and cleaning.
+
+            **Q: What should I do if I have a toothache?**
+            A: If you have a toothache, rinse your mouth with warm water, floss to remove any food particles, and see your dentist as soon as possible.
+
+            **Q: How can I prevent gum disease?**
+            A: Brush your teeth twice a day, floss daily, eat a balanced diet, and visit your dentist regularly.
+        """)
+
+if __name__ == '__main__':
+    main()
+Explanation:
+Session State Initialization: The init_session_state function ensures that the session state variables responses and user_inputs are initialized when the app starts.
+Display Chat History: The display_chat_history function iterates through the stored inputs and responses to display the chat history.
+Chat Input: When a user inputs a question, it is added to the session state along with the corresponding response.
+Sidebar Options: The sidebar options allow the user to switch between different sections of the app.
+This setup allows you to maintain and display the chat history for each user session.
+
+can the gistory be at the sidebar
+ChatGPT
+Sure! You can display the chat history in the sidebar while keeping the main content for user interaction. Here's how you can modify the code to achieve this:
+
+Streamlit App Code with Sidebar Chat History
+python
+Copy code
+import streamlit as st
+from streamlit_chat import message
+
+# Function to initialize session state variables
+def init_session_state():
+    if 'responses' not in st.session_state:
+        st.session_state['responses'] = []
+    if 'user_inputs' not in st.session_state:
+        st.session_state['user_inputs'] = []
+
+# Function to display chat history in the sidebar
+def display_chat_history_in_sidebar():
+    if st.session_state['responses']:
+        st.sidebar.header("Chat History")
+        for i in range(len(st.session_state['responses'])):
+            st.sidebar.write(f"**You:** {st.session_state['user_inputs'][i]}")
+            st.sidebar.write(f"**Bot:** {st.session_state['responses'][i]}")
+
+# Main Streamlit app
+def main():
+    st.set_page_config(page_title="Dr. Smile Bot", page_icon="🦷", layout="wide")
+    st.title("🦷 Dr. Smile Bot 🦷")
+    
+    # Sidebar options
+    st.sidebar.title("Smile Space")
+    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your image URL
+    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+
+    # Initialize session state variables
+    init_session_state()
+
+    if sidebar_option == "Chat with Dr. Smile Bot":
+        st.header("Chat with Dr. Smile Bot")
+        
+        user_input = st.text_input("Ask your dental-related question")
+
+        if user_input:
+            # Assume response is fetched from your chatbot model
+            response = {"answer": "This is a dummy response for the question: " + user_input}
+            
+            # Append user input and response to session state
+            st.session_state['user_inputs'].append(user_input)
+            st.session_state['responses'].append(response['answer'])
+
+        # Display chat history in the sidebar
+        display_chat_history_in_sidebar()
+
+    elif sidebar_option == "Dental Tips":
+        st.header("Dental Tips")
+        st.write("""
+            - Brush your teeth twice a day with fluoride toothpaste.
+            - Floss daily to remove plaque from between your teeth.
+            - Eat a healthy diet and limit sugary snacks.
+            - Visit your dentist regularly for check-ups and cleanings.
+        """)
+
+    elif sidebar_option == "FAQ":
+        st.header("Frequently Asked Questions")
+        st.write("""
+            **Q: How often should I visit the dentist?**
+            A: It is recommended to visit the dentist every six months for a check-up and cleaning.
+
+            **Q: What should I do if I have a toothache?**
+            A: If you have a toothache, rinse your mouth with warm water, floss to remove any food particles, and see your dentist as soon as possible.
+
+            **Q: How can I prevent gum disease?**
+            A: Brush your teeth twice a day, floss daily, eat a balanced diet, and visit your dentist regularly.
+        """)
+
+if __name__ == '__main__':
+    main()
+Explanation:
+Session State Initialization: The init_session_state function ensures that the session state variables responses and user_inputs are initialized when the app starts.
+Display Chat History in Sidebar: The display_chat_history_in_sidebar function iterates through the stored inputs and responses to display the chat history in the sidebar.
+Chat Input: When a user inputs a question, it is added to the session state along with the corresponding response.
+Sidebar Options: The sidebar options allow the user to switch between different sections of the app.
+Main Content: The main content area is used for user interaction, such as asking questions and viewing responses.
+This setup allows the chat history to be displayed in the sidebar while keeping the main content area for new interactions and other features.
+
+whres the main image
+ChatGPT
+Let's add the main image to the sidebar and ensure the chat history is displayed there. Here's the updated Streamlit app code:
+
+Streamlit App Code with Sidebar Chat History and Main Image
+python
+Copy code
+import streamlit as st
+from streamlit_chat import message
+
+# Function to initialize session state variables
+def init_session_state():
+    if 'responses' not in st.session_state:
+        st.session_state['responses'] = []
+    if 'user_inputs' not in st.session_state:
+        st.session_state['user_inputs'] = []
+
+# Function to display chat history in the sidebar
+def display_chat_history_in_sidebar():
+    if st.session_state['responses']:
+        st.sidebar.header("Chat History")
+        for i in range(len(st.session_state['responses'])):
+            st.sidebar.write(f"**You:** {st.session_state['user_inputs'][i]}")
+            st.sidebar.write(f"**Bot:** {st.session_state['responses'][i]}")
+
+# Main Streamlit app
+def main():
+    st.set_page_config(page_title="Dr. Smile Bot", page_icon="🦷", layout="wide")
+    st.title("🦷 Dr. Smile Bot 🦷")
+    
+    # Sidebar options
+    st.sidebar.title("Smile Space")
+    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your image URL
+    
+    # Display chat history in the sidebar
+    display_chat_history_in_sidebar()
+
+    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+
+    # Initialize session state variables
+    init_session_state()
+
+    if sidebar_option == "Chat with Dr. Smile Bot":
+        st.header("Chat with Dr. Smile Bot")
+        
+        user_input = st.text_input("Ask your dental-related question")
+
+        if user_input:
+            # Assume response is fetched from your chatbot model
+            response = {"answer": "This is a dummy response for the question: " + user_input}
+            
+            # Append user input and response to session state
+            st.session_state['user_inputs'].append(user_input)
+            st.session_state['responses'].append(response['answer'])
+
+    elif sidebar_option == "Dental Tips":
+        st.header("Dental Tips")
+        st.write("""
+            - Brush your teeth twice a day with fluoride toothpaste.
+            - Floss daily to remove plaque from between your teeth.
+            - Eat a healthy diet and limit sugary snacks.
+            - Visit your dentist regularly for check-ups and cleanings.
+        """)
+
+    elif sidebar_option == "FAQ":
+        st.header("Frequently Asked Questions")
+        st.write("""
+            **Q: How often should I visit the dentist?**
+            A: It is recommended to visit the dentist every six months for a check-up and cleaning.
+
+            **Q: What should I do if I have a toothache?**
+            A: If you have a toothache, rinse your mouth with warm water, floss to remove any food particles, and see your dentist as soon as possible.
+
+            **Q: How can I prevent gum disease?**
+            A: Brush your teeth twice a day, floss daily, eat a balanced diet, and visit your dentist regularly.
+        """)
+
+if __name__ == '__main__':
+    main()
+Explanation:
+Main Image: The main image is added to the sidebar using st.sidebar.image. This will be displayed at the top of the sidebar.
+Chat History in Sidebar: The chat history is displayed in the sidebar, with user inputs and bot responses listed.
+With these adjustments, the sidebar will display the main image at the top, followed by the chat history, and then the sidebar options. The main content area will be used for interacting with the bot and viewing other content.
+
+ile "/home/adminuser/venv/lib/python3.11/site-packages/streamlit/runtime/scriptrunner/script_runner.py", line 589, in _run_script
+    exec(code, module.__dict__)
+File "/mount/src/drsmilebot/smilebot_done.py", line 207, in <module>
+    main()
+File "/mount/src/drsmilebot/smilebot_done.py", line 148, in main
+    if sidebar_option == "Chat with Dr. Smile Bot":
+       ^^^^^^^^^^^^^^
+ChatGPT
+It seems there might be an indentation or a variable issue. Let's make sure everything is properly defined and the main function is clear. Also, I'll ensure to reinitialize the session state and check for errors properly.
+
+Here's the revised code:
+
+python
+Copy code
+import streamlit as st
+from streamlit_chat import message
+
+# Function to initialize session state variables
+def init_session_state():
+    if 'responses' not in st.session_state:
+        st.session_state['responses'] = []
+    if 'user_inputs' not in st.session_state:
+        st.session_state['user_inputs'] = []
+
+# Function to display chat history in the sidebar
+def display_chat_history_in_sidebar():
+    if st.session_state['responses']:
+        st.sidebar.header("Chat History")
+        for i in range(len(st.session_state['responses'])):
+            st.sidebar.write(f"**You:** {st.session_state['user_inputs'][i]}")
+            st.sidebar.write(f"**Bot:** {st.session_state['responses'][i]}")
+
+# Main Streamlit app
+def main():
+    st.set_page_config(page_title="Dr. Smile Bot", page_icon="🦷", layout="wide")
+    st.title("🦷 Dr. Smile Bot 🦷")
+    
+    # Sidebar options
+    st.sidebar.title("Smile Space")
+    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your image URL
+    
+    # Initialize session state variables
+    init_session_state()
+
+    # Display chat history in the sidebar
+    display_chat_history_in_sidebar()
+
+    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+
+    if sidebar_option == "Chat with Dr. Smile Bot":
+        st.header("Chat with Dr. Smile Bot")
+        
+        user_input = st.text_input("Ask your dental-related question")
+
+        if user_input:
+            # Assume response is fetched from your chatbot model
+            response = {"answer": "This is a dummy response for the question: " + user_input}
+            
+            # Append user input and response to session state
+            st.session_state['user_inputs'].append(user_input)
+            st.session_state['responses'].append(response['answer'])
+
+    elif sidebar_option == "Dental Tips":
+        st.header("Dental Tips")
+        st.write("""
+            - Brush your teeth twice a day with fluoride toothpaste.
+            - Floss daily to remove plaque from between your teeth.
+            - Eat a healthy diet and limit sugary snacks.
+            - Visit your dentist regularly for check-ups and cleanings.
+        """)
+
+    elif sidebar_option == "FAQ":
+        st.header("Frequently Asked Questions")
+        st.write("""
+            **Q: How often should I visit the dentist?**
+            A: It is recommended to visit the dentist every six months for a check-up and cleaning.
+
+            **Q: What should I do if I have a toothache?**
+            A: If you have a toothache, rinse your mouth with warm water, floss to remove any food particles, and see your dentist as soon as possible.
+
+            **Q: How can I prevent gum disease?**
+            A: Brush your teeth twice a day, floss daily, eat a balanced diet, and visit your dentist regularly.
+        """)
+
+if __name__ == '__main__':
+    main()
+This script ensures that the session state variables are properly initialized and displayed in the sidebar. The main image is also displayed at the top of the sidebar, followed by the chat history. If there are any issues with the sidebar options or any indentation errors, this script should resolve them.
+
+the title and image isnt in the middle
+ChatGPT
+To center the title and image, you can use Streamlit's Markdown feature along with some HTML for better control over the layout. Here's the updated script with the centered title and image:
+
+python
+Copy code
+import streamlit as st
+from streamlit_chat import message
+
+# Function to initialize session state variables
+def init_session_state():
+    if 'responses' not in st.session_state:
+        st.session_state['responses'] = []
+    if 'user_inputs' not in st.session_state:
+        st.session_state['user_inputs'] = []
+
+# Function to display chat history in the sidebar
+def display_chat_history_in_sidebar():
+    if st.session_state['responses']:
+        st.sidebar.header("Chat History")
+        for i in range(len(st.session_state['responses'])):
+            st.sidebar.write(f"**You:** {st.session_state['user_inputs'][i]}")
+            st.sidebar.write(f"**Bot:** {st.session_state['responses'][i]}")
+
+# Main Streamlit app
+def main():
+    st.set_page_config(page_title="Dr. Smile Bot", page_icon="🦷", layout="wide")
+    
+    # Centered title and image
+    st.markdown(
+        """
+        <div style="text-align: center;">
+            <h1>🦷 Dr. Smile Bot 🦷</h1>
+            <img src="5495572-removebg-preview.png" alt="Dr. Smile Bot" width="300">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    # Sidebar options
+    st.sidebar.title("Smile Space")
+    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your image URL
+    
+    # Initialize session state variables
+    init_session_state()
+
+    # Display chat history in the sidebar
+    display_chat_history_in_sidebar()
+
+    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+
+    if sidebar_option == "Chat with Dr. Smile Bot":
+        st.header("Chat with Dr. Smile Bot")
+        
+        user_input = st.text_input("Ask your dental-related question")
+
+        if user_input:
+            # Assume response is fetched from your chatbot model
+            response = {"answer": "This is a dummy response for the question: " + user_input}
+            
+            # Append user input and response to session state
+            st.session_state['user_inputs'].append(user_input)
+            st.session_state['responses'].append(response['answer'])
+
+    elif sidebar_option == "Dental Tips":
+        st.header("Dental Tips")
+        st.write("""
+            - Brush your teeth twice a day with fluoride toothpaste.
+            - Floss daily to remove plaque from between your teeth.
+            - Eat a healthy diet and limit sugary snacks.
+            - Visit your dentist regularly for check-ups and cleanings.
+        """)
+
+    elif sidebar_option == "FAQ":
+        st.header("Frequently Asked Questions")
+        st.write("""
+            **Q: How often should I visit the dentist?**
+            A: It is recommended to visit the dentist every six months for a check-up and cleaning.
+
+            **Q: What should I do if I have a toothache?**
+            A: If you have a toothache, rinse your mouth with warm water, floss to remove any food particles, and see your dentist as soon as possible.
+
+            **Q: How can I prevent gum disease?**
+            A: Brush your teeth twice a day, floss daily, eat a balanced diet, and visit your dentist regularly.
+        """)
+
+if __name__ == '__main__':
+    main()
+In this script, the title and image are centered using HTML within a Markdown block. This ensures that they appear in the center of the page. The sidebar title "Smile Space" and the image are displayed on the sidebar as well.
+
+
+
+
+
+
+
+
+
