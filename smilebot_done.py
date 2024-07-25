@@ -162,8 +162,8 @@ import streamlit as st
 #     response = chain({"question": user_input})
 
 #     st.success(response['answer'])
-# Set page configuration at the start
-st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wide")
+# # Set page configuration at the start
+# st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wide")
 
 # Define the main function
 def main():
