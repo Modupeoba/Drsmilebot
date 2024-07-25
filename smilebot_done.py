@@ -131,7 +131,7 @@ def main():
     # Sidebar options
     st.sidebar.title("Welcome User")
     st.sidebar.image("teeth-dental-care-medical-background.png", width=400)  # Replace with your sidebar image path
-    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat", "Dental Tips", "FAQ"])
 
     # # Display main image
     st.image("5495572-removebg-preview.png", width=800)  # Replace with your main image path
