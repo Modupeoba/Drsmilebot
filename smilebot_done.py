@@ -168,7 +168,7 @@ user_db = {}
 
 # Streamlit app
 def main():
-    st.title("Dr. Smile Bot")
+    st.title("🦷 Dr. Smile Bot 🦷")
     
     # Sidebar for user login or signup
     st.sidebar.title("Account")
@@ -204,7 +204,6 @@ def main():
                 st.sidebar.success(f"Logged in as {username}")
 
                 # Main chat interface
-                st.header("Dental Chatbot")
                 st.image("dental-implants-surgery-concept-pen-tool-created-clipping-path-included-jpeg-easy-composite-removebg-preview.png", use_column_width=True)  # Replace with your image URL
 
                 # Chat history
