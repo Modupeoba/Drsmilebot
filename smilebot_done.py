@@ -136,42 +136,15 @@ def main():
     # # Display main image
     st.image("5495572-removebg-preview.png", width=800)  # Replace with your main image path
 
-    if sidebar_option == "Chat":
-        st.header("Chat with Dr. Smile Bot")
-        
-        user_input = st.chat_input("Ask your dental-related question")
-
         if user_input:
-            # Include the current context in the input to maintain the conversation flow
-            st.session_state['context'] += f"User: {user_input}\n"
-            
-            # Fetch response using the context
-            response = chain({"question": user_input, "context": st.session_state['context']})
-            
-            # Append user input and response to session state
+            response = chain({"question": user_input})
             st.session_state['user_inputs'].append(user_input)
             st.session_state['responses'].append(response['answer'])
-            
-            # Update the context with the bot's response
-            st.session_state['context'] += f"Bot: {response['answer']}\n"
-            
-            # Display the chat messages
+
+        if st.session_state['responses']:
             for i in range(len(st.session_state['responses'])):
                 st.write(f"**You:** {st.session_state['user_inputs'][i]}")
                 st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
-
-
-        
-
-        # if user_input:
-        #     response = chain({"question": user_input})
-        #     st.session_state['user_inputs'].append(user_input)
-        #     st.session_state['responses'].append(response['answer'])
-
-        # if st.session_state['responses']:
-        #     for i in range(len(st.session_state['responses'])):
-        #         st.write(f"**You:** {st.session_state['user_inputs'][i]}")
-        #         st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
 
     elif sidebar_option == "Dental Tips":
         st.header("Dental Tips")
