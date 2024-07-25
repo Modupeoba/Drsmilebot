@@ -163,7 +163,7 @@ if sidebar_option == "Chat with Dr. Smile Bot":
                 st.write(f"**You:** {st.session_state['user_inputs'][i]}")
                 st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
 
-    elif sidebar_option == "Dental Tips":
+elif sidebar_option == "Dental Tips":
         st.header("Dental Tips")
         st.write("""
             - Brush your teeth twice a day with fluoride toothpaste.
@@ -172,7 +172,7 @@ if sidebar_option == "Chat with Dr. Smile Bot":
             - Visit your dentist regularly for check-ups and cleanings.
         """)
 
-    elif sidebar_option == "FAQ":
+elif sidebar_option == "FAQ":
         st.header("Frequently Asked Questions")
         st.write("""
             **Q: How often should I visit the dentist?**
