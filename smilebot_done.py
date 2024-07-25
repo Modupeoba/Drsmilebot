@@ -135,9 +135,9 @@ def main():
 
 
     # Sidebar options
-    st.sidebar.title("Options")
-    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your sidebar image path
-    sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
+        st.sidebar.title("Options")
+        st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your sidebar image path
+        sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # Display main image
     # st.image("/", use_column_width=True)  # Replace with your main image path
