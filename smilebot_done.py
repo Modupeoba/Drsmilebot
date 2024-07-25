@@ -131,6 +131,16 @@ def main():
         """,
         unsafe_allow_html=True
     )
+
+        # Display main image
+    st.markdown(
+        """
+        <div style="text-align: center;">
+            <img src="teeth-dental-care-medical-background.png" alt="Dr. Smile Bot" width="800">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     
     # Sidebar options
     st.sidebar.title("Smile hub")
@@ -138,7 +148,7 @@ def main():
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ"])
 
     # # Display main image
-    st.image("teeth-dental-care-medical-background.png", width = 800)  # Replace with your main image path
+    # st.image("teeth-dental-care-medical-background.png", width = 800)  # Replace with your main image path
 
     if sidebar_option == "Chat with Dr. Smile Bot":
         st.header("Chat with Dr. Smile Bot")
