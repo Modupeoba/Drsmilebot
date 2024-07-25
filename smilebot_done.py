@@ -163,14 +163,19 @@ import streamlit as st
 
 #     st.success(response['answer'])
 
-# Streamlit app
+
+# Define the main function
 def main():
+    st.set_page_config(page_title="Dr. Smile Bot", page_icon=":smiley:", layout="wide")
     st.title("🦷 Dr. Smile Bot 🦷")
     
     # Sidebar options
     st.sidebar.title("Options")
-    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your image URL
+    st.sidebar.image("5495572-removebg-preview.png", use_column_width=True)  # Replace with your sidebar image path
     sidebar_option = st.sidebar.selectbox("Choose an option", ["Chat with Dr. Smile Bot", "Dental Tips", "FAQ", "Profile"])
+
+    # Display main image
+    st.image("dental-implants-surgery-concept-pen-tool-created-clipping-path-included-jpeg-easy-composite-removebg-preview.png", use_column_width=True)  # Replace with your main image path
 
     if sidebar_option == "Chat with Dr. Smile Bot":
         st.header("Chat with Dr. Smile Bot")
@@ -217,8 +222,14 @@ def main():
 
     elif sidebar_option == "Profile":
         st.header("User Profile")
+        st.image("male-female-user-circles-flat-set.png", width=100)  # Replace with your user profile image path
+        st.write("**Name:** John Doe")
+        st.write("**Email:** johndoe@example.com")
+        st.write("**Member since:** January 2021")
+        st.write("**Last login:** July 24, 2024")
         st.write("User information and settings can be displayed here.")
 
+# Run the app
 if __name__ == '__main__':
     main()
 # print(response['answer'])
