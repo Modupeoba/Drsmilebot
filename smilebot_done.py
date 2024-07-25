@@ -136,16 +136,16 @@ def main():
     # # Display main image
     st.image("5495572-removebg-preview.png", width=800)  # Replace with your main image path
 
-    if user_input:
-        response = chain({"question": user_input})
-        st.session_state['user_inputs'].append(user_input)
-        st.session_state['responses'].append(response['answer'])
+        if user_input:
+            response = chain({"question": user_input})
+            st.session_state['user_inputs'].append(user_input)
+            st.session_state['responses'].append(response['answer'])
 
-    if st.session_state['responses']:
-        for i in range(len(st.session_state['responses'])):
-            st.write(f"**You:** {st.session_state['user_inputs'][i]}")
-            st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
-
+        if st.session_state['responses']:
+            for i in range(len(st.session_state['responses'])):
+                st.write(f"**You:** {st.session_state['user_inputs'][i]}")
+                st.write(f"**Dr. Smile Bot:** {st.session_state['responses'][i]}")
+                
     elif sidebar_option == "Dental Tips":
         st.header("Dental Tips")
         st.write("""
